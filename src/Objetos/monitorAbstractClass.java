@@ -15,12 +15,12 @@ public abstract class monitorAbstractClass implements InterfazMonitorArreglo{
 
 
     public int[][][] generarNumeros(){
-        int[][][] matrizAux = new int[getTamañoArreglo()][getTamañoArreglo()][3];
+        int[][][] matrizAux = new int[getTamañoArreglo()][getTamañoArreglo()][6];
         Random random = new Random();  //ESTANCIA DE UN OBJETO RANDOM PARA GENERAR NUMEROS ALEATORIOS
         for (setIteradorPrimerDimension(0); getIteradorPrimerDimension() < getTamañoArreglo(); setIteradorPrimerDimension(getIteradorPrimerDimension() + 1)) {
             for (setIteradorSegDimension(0); getIteradorSegDimension() < getTamañoArreglo(); setIteradorSegDimension(getIteradorSegDimension() + 1)) {
                 setNumeroAleatorio(random.nextInt(100)+1);
-                System.out.println(""+getNumeroAleatorio());
+                System.out.println("VALOR: "+getNumeroAleatorio()+" AGREGADO EN [ "+getIteradorPrimerDimension()+" ] [ "+getIteradorSegDimension()+" ]");
                 matrizAux[getIteradorPrimerDimension()][getIteradorSegDimension()][0] = getNumeroAleatorio();
                 for ( setIteradorTerDimencion(1); getIteradorTerDimencion()< 3; setIteradorTerDimencion(getIteradorTerDimencion() + 1)) {
                     matrizAux[getIteradorPrimerDimension()][getIteradorSegDimension()][getIteradorTerDimencion()] = 0;
@@ -42,37 +42,53 @@ public abstract class monitorAbstractClass implements InterfazMonitorArreglo{
     }
 
 
-    public  void decidirOperacion(int operacion,int inicioX,int finX,int inicioY,int finY,int numMatriz){
-        for (setIteradorPrimerDimension(inicioX); getIteradorPrimerDimension()< finX;setIteradorSegDimension(getIteradorSegDimension() + 1)) {
-            for (setIteradorSegDimension(inicioY); getIteradorSegDimension() < finY;setIteradorSegDimension(getIteradorSegDimension()+1)) {
+    public void decidirOperacion(int operacion, int inicio1, int fin1, int inicio2, int fin2, int dimensionOperacion){
+        for (int iteDimension1 = inicio1; iteDimension1< fin1; iteDimension1 ++) {
+            for (int iteDimension2 = inicio2; iteDimension2 < fin2; iteDimension2++)  {
                 switch (operacion) {
-                    case 1:
-                        getArregloMatrizes()[iteradorPrimerDimension][iteradorSegDimension][numMatriz] = getArregloMatrizes()[iteradorPrimerDimension][iteradorSegDimension][0] + 10;
+                    case 1: // S U  M A 
+                        getArregloMatrizes()[iteDimension1][iteDimension2][dimensionOperacion] = getArregloMatrizes()[iteDimension1][iteDimension2][0] + 10;
                         break;
-                    case 2:
-                    getArregloMatrizes()[iteradorPrimerDimension][iteradorSegDimension][numMatriz] = getArregloMatrizes()[iteradorPrimerDimension][iteradorSegDimension][0] - 10;
+                    case 2: // R E S T A
+                    getArregloMatrizes()[iteDimension1][iteDimension2][dimensionOperacion] = getArregloMatrizes()[iteDimension1][iteDimension2][0] - 10;
                     break;
-                    case 3:
-
-                        getArregloMatrizes()[iteradorPrimerDimension][iteradorSegDimension][numMatriz] = getArregloMatrizes()[iteradorPrimerDimension][iteradorSegDimension][0] * 10;
+                    case 3: // M U L T I P L I C A C I O N 
+                        getArregloMatrizes()[iteDimension1][iteDimension2][dimensionOperacion] = getArregloMatrizes()[iteDimension1][iteDimension2][0] * 10;
                         break;
-                    case 4:
-                        getArregloMatrizes()[iteradorPrimerDimension][iteradorSegDimension][numMatriz] = getArregloMatrizes()[iteradorPrimerDimension][iteradorSegDimension][0] /10;
+                    case 4: // D I V I S I O N 
+                        getArregloMatrizes()[iteDimension1][iteDimension2][dimensionOperacion] = getArregloMatrizes()[iteDimension1][iteDimension2][0] /10;
                         break;
                 }
             }
         }
     }
 
-    public void operacionCentral(){
-        int filaYColumna = tamañoArreglo / 4;
-        for (int k = 0; k < 4; k++) {
-            decidirOperacion(k, filaYColumna, (filaYColumna * 3), filaYColumna, (filaYColumna * 3),1);
+    
+    public void operacionCentral(int dimension){
+        int filasColumnasCentro = tamañoArreglo / 4;
+        for (int operacionAleatoria = 0; operacionAleatoria <4; operacionAleatoria++) {
+            decidirOperacion(operacionAleatoria, filasColumnasCentro, (filasColumnasCentro * 3), filasColumnasCentro, (filasColumnasCentro * 3),5);
         }
     }
     
     
-    
+    @Override
+    public void combinarMatrizes(int cara1,int cara2) {
+
+            for (int i = 0; i < getTamañoArreglo(); i++) {
+
+                System.out.println("cara " + cara1);
+                for (int j = 0; j < getTamañoArreglo(); j++) {
+                    System.out.printf("%4d ", getArregloMatrizes()[i][j][cara1]);
+                }
+                System.out.println("cara " + cara2);
+                for (int j = 0; j < getTamañoArreglo(); j++) {
+                    System.out.printf("%4d ", getArregloMatrizes()[i][j][cara2]);
+                }
+            }
+        
+        
+    }
     
     
     /**
